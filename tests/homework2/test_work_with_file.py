@@ -1,12 +1,6 @@
 import pytest
 
-from homework2.task1.task import (
-    count_non_ascii_chars,
-    count_punctuation_chars,
-    get_longest_diverse_words,
-    get_most_common_non_ascii_char,
-    get_rarest_char,
-)
+from homework2.task1 import task
 
 
 class TestWorkWithFile:
@@ -23,16 +17,16 @@ class TestWorkWithFile:
         assert create_file.name == "test_file.txt"
 
     def test_find_10_longest_unique_words(self, create_file):
-        assert get_longest_diverse_words(create_file.name) == ["Jetzt", "hier"]
+        assert task.get_longest_diverse_words(create_file.name) == ["Jetzt", "hier"]
 
     def test_find_rarest_symbol(self, create_file):
-        assert get_rarest_char(create_file.name) == "»"
+        assert task.get_rarest_char(create_file.name) == "»"
 
     def test_calculate_count_punctuation(self, create_file):
-        assert count_punctuation_chars(create_file.name) == 2
+        assert task.count_punctuation_chars(create_file.name) == 2
 
     def test_calculate_count_symbols_unicode_escape(self, create_file):
-        assert count_non_ascii_chars(create_file.name) == 2
+        assert task.count_non_ascii_chars(create_file.name) == 2
 
     def test_find_common_symbols_unicode_escape(self, create_file):
-        assert get_most_common_non_ascii_char(create_file.name) == "»"
+        assert task.get_most_common_non_ascii_char(create_file.name) == "»"
