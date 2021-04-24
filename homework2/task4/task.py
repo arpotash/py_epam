@@ -29,5 +29,6 @@ def cache(func: Callable) -> Callable:
     return wrapper
 
 
+@cache
 def f(a, b):
     return (a ** b) ** 2

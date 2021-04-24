@@ -19,4 +19,3 @@ def combinations(*args: List[Any]) -> List[List]:
     cp = list(product(*args))
     lst = [list(elem) for elem in cp]
     return lst
-

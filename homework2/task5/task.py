@@ -12,20 +12,21 @@ assert = custom_range(string.ascii_lowercase, 'p', 'g', -2) == ['p', 'n', 'l', '
 import string
 
 
-def custom_range(stop, start="a", step=1, encoding=string.ascii_lowercase):
-    lst_custom_for_value = []
-    start_value = ord(start)
-    stop_value = ord(stop)
-    if step < 0:
-        while stop_value > start_value:
-            lst_custom_for_value.append(chr(stop_value))
-            stop_value += step
+def custom_range(encoding, *args):
+    if encoding not in [string.ascii_lowercase, string.ascii_uppercase]:
+        raise TypeError('no argument encoding')
+    start, stop, step = None, None, None
+    if len(args) == 1:
+        start = 'a'.lower() if encoding == string.ascii_lowercase else 'a'.upper()
+        stop, step = args[0], 1
+    elif len(args) == 2:
+        start, stop, step = args[0], args[1], 1
+    elif len(args) == 3:
+        start, stop, step = args[0], args[1], args[2]
+    if start in encoding and stop in encoding:
+        start_value = ord(start)
+        stop_value = ord(stop)
+        result = [chr(value) for value in range(start_value, stop_value, step)]
+        return result
     else:
-        while start_value < stop_value:
-            lst_custom_for_value.append(chr(start_value))
-            start_value += step
-
-    return lst_custom_for_value
-
-
-print(custom_range("g"))
+        raise ValueError('start or stop point is not suitable for this alphabet')
