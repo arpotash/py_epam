@@ -14,10 +14,10 @@ import string
 
 def custom_range(encoding, *args):
     if encoding not in [string.ascii_lowercase, string.ascii_uppercase]:
-        raise TypeError('no argument encoding')
+        raise TypeError("no argument encoding")
     start, stop, step = None, None, None
     if len(args) == 1:
-        start = 'a'.lower() if encoding == string.ascii_lowercase else 'a'.upper()
+        start = "a".lower() if encoding == string.ascii_lowercase else "a".upper()
         stop, step = args[0], 1
     elif len(args) == 2:
         start, stop, step = args[0], args[1], 1
@@ -29,4 +29,4 @@ def custom_range(encoding, *args):
         result = [chr(value) for value in range(start_value, stop_value, step)]
         return result
     else:
-        raise ValueError('start or stop point is not suitable for this alphabet')
+        raise ValueError("start or stop point is not suitable for this alphabet")

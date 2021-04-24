@@ -13,6 +13,7 @@ from itertools import islice
 from random import choice
 from typing import List
 from unicodedata import category
+
 from nltk import regexp_tokenize
 
 
@@ -33,7 +34,7 @@ def get_longest_diverse_words(file_path: str) -> List[str]:
 
 
 def get_rarest_char(file_path: str) -> str:
-    with open(file_path, encoding='unicode_escape') as f_o:
+    with open(file_path, encoding="unicode_escape") as f_o:
         count_symbols = {}
         for line in f_o.readlines():
             for symbol in line:
@@ -72,6 +73,8 @@ def get_most_common_non_ascii_char(file_path: str) -> str:
         for line in f_o.readlines():
             res = re.findall(text_pattern, line)
             result_lst += res
-        result = sorted(result_lst, reverse=True, key=lambda elem: result_lst.count(elem))
-        most_common_elem = result[0].encode('utf-8').decode('unicode_escape')
+        result = sorted(
+            result_lst, reverse=True, key=lambda elem: result_lst.count(elem)
+        )
+        most_common_elem = result[0].encode("utf-8").decode("unicode_escape")
         return most_common_elem
