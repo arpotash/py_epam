@@ -7,5 +7,10 @@ def test_positive_case():
 
 
 def test_negative_case():
-    """Testing that non-powers of 2 give False"""
+    """Testing that positive non-powers of 2 value give False"""
     assert not check_power_of_2(0)
+
+
+def test_with_negative_value():
+    """Testing that negative value give False"""
+    assert not check_power_of_2(-2)

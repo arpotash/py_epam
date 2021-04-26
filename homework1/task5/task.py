@@ -13,8 +13,6 @@ def find_maximal_subarray_sum(nums: List[int], k: int) -> int:
     length = len(nums)
     result = 0
     for num in range(length):
-        if type(num) != int:
-            raise TypeError("the sequence must be only contains integer values")
         lst = []
         for update_start_num in range(num, length):
             if len(lst) == k:

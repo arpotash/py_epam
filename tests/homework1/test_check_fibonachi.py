@@ -21,5 +21,5 @@ class TestCheckFibonachi:
 
     def test_length_less_3(self):
         """Testing that sequence with length less than 3 return IndexError"""
-        with pytest.raises(IndexError):
+        with pytest.raises(Exception):
             check_fibonacci([1, 2])

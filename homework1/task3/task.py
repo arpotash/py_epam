@@ -13,8 +13,8 @@ from typing import Tuple
 
 def find_maximum_and_minimum(file_name: str) -> Tuple[int, int]:
     with open(file_name, "r") as f_o:
-        min_value = 65535
-        max_value = -65535
+        min_value = int(f_o.readline())
+        max_value = min_value
         for line in f_o.readlines():
             num = int(line)
             if num < min_value:
