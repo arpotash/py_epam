@@ -7,14 +7,8 @@ Given a file containing text. Complete using only default collections:
     5) Find most common non ascii char for document
 """
 import re
-import string
-from collections import Counter
 from itertools import islice
-from random import choice
 from typing import List
-from unicodedata import category
-
-from nltk import regexp_tokenize
 
 
 def get_longest_diverse_words(file_path: str) -> List[str]:
@@ -22,8 +16,15 @@ def get_longest_diverse_words(file_path: str) -> List[str]:
         with open(file_path, encoding="unicode_escape") as f_o:
             lst_count_letters = []
             for line in f_o.readlines():
-                words_in_line = regexp_tokenize(line, r"[\w']+")
+                words_in_line = re.findall(r"[\w-]+", line)
+
                 lst_count_letters += words_in_line
+            for num, word in enumerate(lst_count_letters):
+                if word.endswith("-"):
+                    lst_count_letters[num] = lst_count_letters[num].replace("-", "")
+                    lst_count_letters[num] += lst_count_letters[num + 1]
+                    lst_count_letters.pop(num + 1)
+
             lst_max_distinct_letter = sorted(
                 lst_count_letters, reverse=True, key=lambda elem: len(set(elem))
             )
@@ -51,7 +52,7 @@ def count_punctuation_chars(file_path: str) -> int:
     with open(file_path, encoding="unicode_escape") as f_o:
         count = 0
         for line in f_o.readlines():
-            punctuation_in_line = regexp_tokenize(line, r"[^\w\s]+")
+            punctuation_in_line = re.findall(r"[^\w\s]+", line)
             count += len(punctuation_in_line)
         return count
 
