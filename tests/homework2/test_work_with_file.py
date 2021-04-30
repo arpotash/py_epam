@@ -6,10 +6,9 @@ from homework2.task1 import task
 
 
 class TestWorkWithFile:
-
     @pytest.fixture
     def create_file(self, tmp_path):
-        file_path = os.path.join(tmp_path, 'test_file.txt')
+        file_path = os.path.join(tmp_path, "test_file.txt")
         u_e_word = r"\u00bb"
         u_e_word1 = r"\u00ab"
         test_data = "Jetzt-\nderisqse hier"
