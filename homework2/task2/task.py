@@ -16,6 +16,9 @@ from typing import List, Tuple
 
 def major_and_minor_elem(inp: List) -> Tuple[int, int]:
     sorted_lst = sorted(inp, key=lambda elem: inp.count(elem))
-    min_value = sorted_lst[0]
     max_value = sorted_lst[-1]
+    if len(set(sorted_lst)) == 1:
+        min_value = None
+    else:
+        min_value = sorted_lst[0]
     return max_value, min_value

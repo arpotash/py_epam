@@ -19,12 +19,11 @@ def cache(func: Callable) -> Callable:
 
     def wrapper(*args, **kwargs):
         nonlocal cache_key
-        if not cache_key.get(args, kwargs):
+        key = (args, tuple(kwargs.items()))
+        if key not in cache_key:
             response = func(*args, **kwargs)
-            cache_key[args] = response
-            return response
-        else:
-            return cache_key[args]
+            cache_key[key] = response
+        return cache_key[key]
 
     return wrapper
 
