@@ -120,10 +120,10 @@ class TestCustomRange:
         assert exception_msg == "start or stop point is not suitable for this alphabet"
 
     def test_ascii_range_no_encoding(self):
-        with pytest.raises(TypeError) as tp_e:
+        with pytest.raises(AttributeError) as tp_e:
             custom_range("g")
         exception_msg = tp_e.value.args[0]
-        assert exception_msg == "no argument encoding"
+        assert exception_msg == "count arguments have to be from 1 to 3"
 
     def test_step_0(self):
         with pytest.raises(ValueError) as e:
@@ -131,3 +131,15 @@ class TestCustomRange:
             custom_range(string.ascii_lowercase, "A", "P", 0)
         exception_msg = e.value.args[0]
         assert exception_msg == "range() arg 3 must not be zero"
+
+    def test_integer_range_stop(self):
+        assert custom_range(range(10), 4) == [0, 1, 2, 3]
+
+    def test_integer_range_stop_start(self):
+        assert custom_range(range(10), 4, 7) == [4, 5, 6]
+
+    def test_integer_range_stop_start_positive_step(self):
+        assert custom_range(range(10), 3, 9, 2) == [3, 5, 7]
+
+    def test_integer_range_stop_start_negative_step(self):
+        assert custom_range(range(10), 8, 3, -1) == [8, 7, 6, 5, 4]
