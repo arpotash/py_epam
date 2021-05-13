@@ -13,7 +13,6 @@ def slow_calculate(value):
 
 
 def distribution_pool():
-    sequence = [num for num in range(500)]
     p = Pool(50)
-    result = sum(p.map(slow_calculate, sequence))
+    result = sum(p.map(slow_calculate, range(500)))
     return result

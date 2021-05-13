@@ -4,20 +4,20 @@ def cache_function(times):
 
         def wrapper(*args, **kwargs):
             nonlocal cache_key
-            nonlocal times
-            if not cache_key.get(args, kwargs):
+            key = (args, tuple(sorted(kwargs.items())))
+            if key not in cache_key:
                 cache_result = func(*args, **kwargs)
-                cache_key[args] = cache_result
-            while times > 0:
-                times -= 1
-                return cache_key[args]
-            cache_key[args] = func(*args, **kwargs)
-            return cache_key[args]
-
+                cache_key[key] = [cache_result, 0]
+            response, called = cache_key[key]
+            if called > times:
+                return func(*args, **kwargs)
+            else:
+                cache_key[key][1] += 1
+                return response
         return wrapper
-
     return real_decorator
 
 
+@cache_function(times=2)
 def f():
     return input("? ")

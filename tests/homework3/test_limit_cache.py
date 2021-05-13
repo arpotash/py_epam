@@ -14,8 +14,9 @@ class TestCache:
             nonlocal counter
             counter += 1
             return 20
-
         assert counter == 0
+        f()
+        assert counter == 1
         f()
         assert counter == 1
         f()
