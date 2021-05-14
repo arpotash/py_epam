@@ -1,0 +1,4 @@
+pytest
+isort
+black==20.8b1
+nltk
