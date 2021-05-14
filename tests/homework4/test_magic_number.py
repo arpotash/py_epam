@@ -7,7 +7,7 @@ from homework4.task1.task import check_exist_file, read_magic_number
 
 class TestMagicNumber:
     @pytest.fixture
-    def create_file_not_magic_num(self, tmp_path):
+    def create_file_magic_num(self, tmp_path):
         test_file_path = os.path.join(tmp_path, "test_file.txt")
         test_data = "1\n2\n"
         with open(test_file_path, "w") as f_o:
@@ -15,7 +15,7 @@ class TestMagicNumber:
             return test_file_path
 
     @pytest.fixture
-    def create_file_magic_num(self, tmp_path):
+    def create_file_not_magic_num(self, tmp_path):
         test_file_path = os.path.join(tmp_path, "test_file_1.txt")
         test_data = "10\n2\n"
         with open(test_file_path, "w") as f_o:
@@ -32,7 +32,7 @@ class TestMagicNumber:
 
     def test_is_not_created_file(self):
         """Testing that file doesn't exist"""
-        with pytest.raises(FileNotFoundError):
+        with pytest.raises(ValueError):
             check_exist_file("test_hide_file.txt")
 
     def test_negative_define_magic_number(self, create_file_not_magic_num):

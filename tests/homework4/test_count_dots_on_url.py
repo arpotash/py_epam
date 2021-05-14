@@ -1,5 +1,4 @@
 from unittest.mock import Mock
-from urllib.error import URLError
 
 import pytest
 
@@ -14,5 +13,7 @@ class TestCountDotsOnUrl:
         assert count_dots_on_i("xxxx") == 3
 
     def test_is_exist_url(self):
-        with pytest.raises(URLError) as e:
+        with pytest.raises(ValueError) as e:
             count_dots_on_i("http://wewwwewe.com/")
+        msg = e.value.args[0]
+        assert msg == "url doesn't exist"
