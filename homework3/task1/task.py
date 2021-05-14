@@ -14,7 +14,9 @@ def cache_function(times):
             else:
                 cache_key[key][1] += 1
                 return response
+
         return wrapper
+
     return real_decorator
 
 

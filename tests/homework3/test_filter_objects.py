@@ -1,6 +1,6 @@
 import pytest
 
-from homework3.task3.task import Filter, make_filter
+from homework3.task3.task import make_filter
 
 
 class TestFilterObjects:
@@ -17,15 +17,26 @@ class TestFilterObjects:
         ]
         return sample_data
 
-    def test_fail_with_arguments_in_1_element(self, create_test_data):
-        """Testing that if all keys are in 1 element data function return
-        wrong answer, should return this element"""
-        assert make_filter(name="polly", type="bird").apply(create_test_data) != [
+    def test_filter_with_keys_in_1_item(self, create_test_data):
+        """Testing that if all keys are in 1 item data function return
+        right answer"""
+        assert make_filter(name="polly", type="bird").apply(create_test_data) == [
             {"is_dead": True, "kind": "parrot", "type": "bird", "name": "polly"}
         ]
 
-    def test_fail_with_no_elem_key_by_both_elem(self, create_test_data):
-        """Testing that with key, which is not present in both elements
-        return wrong answer, should return element with this key"""
-        with pytest.raises(KeyError):
-            make_filter(kind="parrot").apply(create_test_data)
+    def test_filter_with_keys_in_different_items(self, create_test_data):
+        """Testing that with keys, which are present in different is
+        return empty list"""
+        assert make_filter(name="Bill", type="bird").apply(create_test_data) == []
+
+    def test_filter_with_1_key_in_1_item(self, create_test_data):
+        """Testing that if key which is not present in both items
+        return only item with this key"""
+        assert make_filter(last_name="Gilbert").apply(create_test_data) == [
+            {
+                "name": "Bill",
+                "last_name": "Gilbert",
+                "occupation": "was here",
+                "type": "person",
+            }
+        ]
