@@ -13,7 +13,6 @@ import string
 
 
 def custom_range(sequence, *args):
-    start, stop, step = None, None, None
     if len(args) == 1:
         start, stop, step = sequence[0], args[0], 1
     elif len(args) == 2:
@@ -26,10 +25,9 @@ def custom_range(sequence, *args):
         if type(start) is str and type(stop) is str:
             start_value = ord(start)
             stop_value = ord(stop)
-            result = [chr(value) for value in range(start_value, stop_value, step)]
-            return result
+            return [chr(value) for value in range(start_value, stop_value, step)]
+
         else:
-            result = [value for value in range(start, stop, step)]
-            return result
+            return [value for value in range(start, stop, step)]
     else:
         raise ValueError("start or stop point is not suitable for this alphabet")
