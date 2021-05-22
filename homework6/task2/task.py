@@ -4,7 +4,7 @@ def instances_counter(cls):
 
         @classmethod
         def init_counter(cls):
-            if '_count' not in cls.__dict__:
+            if "_count" not in cls.__dict__:
                 cls._count = 0
 
         def __init__(self, *args, **kwargs):
@@ -24,6 +24,7 @@ def instances_counter(cls):
                 return cls._count
             finally:
                 cls._count = 0
+
     return InstanceCounter
 
 

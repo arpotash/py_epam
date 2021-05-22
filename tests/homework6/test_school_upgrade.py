@@ -13,7 +13,6 @@ HOMEWORK_RESULT = task.HomeworkResult(HOMEWORK, STUDENT, "Solution")
 
 
 class TestSchoolStudent:
-
     def test_positive_firstname_lastname(self):
         """Testing right student's firstname, lastname"""
         assert STUDENT.first_name == "Daniil"
@@ -53,7 +52,6 @@ class TestSchoolStudent:
 
 
 class TestSchoolTeacher:
-
     def test_positive_firstname_last_name(self):
         """Testing right teacher's firstname, lastname"""
         assert TEACHER.first_name == "Roman"
