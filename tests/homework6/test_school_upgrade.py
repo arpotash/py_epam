@@ -1,4 +1,5 @@
 import datetime
+from collections import defaultdict
 
 import pytest
 
@@ -52,6 +53,11 @@ class TestSchoolStudent:
 
 
 class TestSchoolTeacher:
+    @pytest.fixture
+    def clean_homework(self):
+        task.Teacher.homework_done = defaultdict(list)
+        task.Teacher._homework_done_details = defaultdict(list)
+
     def test_positive_firstname_last_name(self):
         """Testing right teacher's firstname, lastname"""
         assert TEACHER.first_name == "Roman"
@@ -69,17 +75,18 @@ class TestSchoolTeacher:
         assert create_homework.deadline == datetime.timedelta(3)
         assert create_homework.text == "Create oop script"
 
-    def test_create_homework_with_deadline_0(self, get_teacher):
+    def test_create_homework_with_deadline_0(self):
         """Testing right creating homework by teacher with deadline equal 0"""
-        create_homework = get_teacher.create_homework("Create oop script", 0)
+        create_homework = TEACHER.create_homework("Create oop script", 0)
         assert create_homework.deadline == datetime.timedelta(0)
         assert create_homework.text == "Create oop script"
 
-    def test_check_homework_with_right_solution(self):
+    def test_check_homework_with_right_solution(self, clean_homework):
         """Testing checking done homework by teacher with right solution"""
         check_result = TEACHER.check_homework(HOMEWORK_RESULT)
         assert check_result
         assert len(task.Teacher.homework_done[HOMEWORK]) == 1
+        clean_homework
 
     def test_check_homework_with_wrong_solution(self):
         """Testing checking done homework by teacher with wrong solution"""
@@ -87,7 +94,7 @@ class TestSchoolTeacher:
         check_result = TEACHER.check_homework(done_homework)
         assert not check_result
 
-    def test_check_homework_with_duplicate_author(self):
+    def test_check_homework_with_duplicate_author(self, clean_homework):
         """Testing checking done homework from student, who has already sent the solution
         for checking"""
         done_homework_repeat = STUDENT.do_homework(HOMEWORK, "Finished")
@@ -97,8 +104,9 @@ class TestSchoolTeacher:
         assert len(TEACHER.homework_done[HOMEWORK]) == 1
         assert not check_result_repeat
         assert len(TEACHER.homework_done[HOMEWORK]) == 1
+        clean_homework
 
-    def test_check_homework_with_duplicate_solution(self):
+    def test_check_homework_with_duplicate_solution(self, clean_homework):
         """Testing checking done homework with the same solutions one homework"""
         student = task.Student("Romanov", "Alex")
         done_homework_repeat = student.do_homework(HOMEWORK, "Solution")
@@ -108,8 +116,9 @@ class TestSchoolTeacher:
         assert len(TEACHER.homework_done[HOMEWORK]) == 1
         assert not check_result_repeat
         assert len(TEACHER.homework_done[HOMEWORK]) == 1
+        clean_homework
 
-    def test_single_homework_results_for_teachers(self):
+    def test_single_homework_results_for_teachers(self, clean_homework):
         """Testing the same access to homework for all teachers"""
         teacher = task.Teacher("Malakhov", "Roman")
         student = task.Student("Romanov", "Alex")
@@ -119,8 +128,9 @@ class TestSchoolTeacher:
         assert len(TEACHER.homework_done[HOMEWORK]) == 2
         assert len(teacher.homework_done[HOMEWORK]) == 2
         assert len(task.Teacher.homework_done[HOMEWORK]) == 2
+        clean_homework
 
-    def test_reset_results_all(self):
+    def test_reset_results_all(self, clean_homework):
         """Testing reset all homework results by teacher"""
         student = task.Student("Romanov", "Alex")
         create_homework_2 = TEACHER.create_homework("Create web site", 3)
@@ -131,8 +141,9 @@ class TestSchoolTeacher:
         assert len(TEACHER.homework_done[create_homework_2]) == 1
         TEACHER.reset_results()
         assert TEACHER.homework_done == {}
+        clean_homework
 
-    def test_reset_results_homework(self):
+    def test_reset_results_homework(self, clean_homework):
         """Testing reset homework results by key which is homework by teacher"""
         student = task.Student("Romanov", "Alex")
         create_homework_2 = TEACHER.create_homework("Create web site", 3)
@@ -144,6 +155,7 @@ class TestSchoolTeacher:
         TEACHER.reset_results(homework=HOMEWORK)
         assert TEACHER.homework_done[HOMEWORK] == []
         assert len(TEACHER.homework_done[create_homework_2]) == 1
+        clean_homework
 
     def test_create_homework_result_with_wrong_class(self):
         """Testing creating homework with wrong class when initializing attributes"""

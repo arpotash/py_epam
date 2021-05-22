@@ -1,5 +1,5 @@
 import datetime
-from collections import defaultdict, namedtuple
+from collections import defaultdict
 
 
 class DeadlineError(Exception):
@@ -43,7 +43,7 @@ class HomeworkResult:
 
 class Teacher(Student):
     homework_done = defaultdict(list)
-    __homework_done_details = defaultdict(list)
+    _homework_done_details = defaultdict(list)
 
     def create_homework(self, text, deadline):
         return Homework(text, deadline)
@@ -57,11 +57,11 @@ class Teacher(Student):
             homework_result.solution,
             homework_result.homework.text,
         )
-        if self.__homework_done_details[homework_result.homework]:
-            for homework in self.__homework_done_details[homework_result.homework]:
+        if self._homework_done_details[homework_result.homework]:
+            for homework in self._homework_done_details[homework_result.homework]:
                 if homework_info[0] == homework[0] or homework_info[1] == homework[1]:
                     return False
-        self.__homework_done_details[homework_result.homework].append(homework_info)
+        self._homework_done_details[homework_result.homework].append(homework_info)
         return True
 
     def check_homework(self, homework_result):
@@ -76,6 +76,8 @@ class Teacher(Student):
     def reset_results(cls, **kwargs):
         if not kwargs:
             cls.homework_done = defaultdict(list)
+            cls._homework_done_details = defaultdict(list)
         else:
             key = list(kwargs.keys())[0]
             del cls.homework_done[kwargs[key]]
+            del cls._homework_done_details[kwargs[key]]
