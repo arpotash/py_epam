@@ -1,11 +1,13 @@
 import sqlite3
+import os
 import pytest
 
 from homework8.task2.task import TableData
+DB_PATH = os.path.join(os.getcwd(), 'tests', 'homework8', 'example.sqlite')
 
 
 class TestSqliteManager:
-    presidents = TableData(database_name='example.sqlite', table_name="presidents")
+    presidents = TableData(database_name=DB_PATH, table_name="presidents")
 
     def test_connect_db(self):
         assert self.presidents.cursor is not None
