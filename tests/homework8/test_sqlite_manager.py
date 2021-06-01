@@ -1,5 +1,6 @@
-import sqlite3
 import os
+import sqlite3
+
 import pytest
 
 from homework8.task2.task import TableData
@@ -8,7 +9,7 @@ os.chdir(f"{os.path.join(os.getcwd(), 'tests', 'homework8')}")
 
 
 class TestSqliteManager:
-    presidents = TableData(database_name='example.sqlite', table_name="presidents")
+    presidents = TableData(database_name="example.sqlite", table_name="presidents")
 
     def test_connect_db(self):
         assert self.presidents.cursor is not None
@@ -20,14 +21,21 @@ class TestSqliteManager:
         assert len(self.presidents) == 3
 
     def test_create_row(self):
-        self.presidents.create_row("president_name", "president_age", "president_country")
+        self.presidents.create_row(
+            "president_name", "president_age", "president_country"
+        )
         assert len(self.presidents) == 4
-        assert (self.presidents.create_row(
-            "president_name", "president_new_age", "president_new_country") ==
-                "president_name in presidents")
+        assert (
+            self.presidents.create_row(
+                "president_name", "president_new_age", "president_new_country"
+            )
+            == "president_name in presidents"
+        )
         assert len(self.presidents) == 4
         self.presidents.cursor.execute(
-            f"DELETE FROM {self.presidents.table} WHERE name=:name", {"name": "president_name"})
+            f"DELETE FROM {self.presidents.table} WHERE name=:name",
+            {"name": "president_name"},
+        )
         self.presidents.database.commit()
         assert len(self.presidents) == 3
 
