@@ -81,3 +81,8 @@ class Teacher(Student):
             key = list(kwargs.keys())[0]
             del cls.homework_done[kwargs[key]]
             del cls._homework_done_details[kwargs[key]]
+
+    def __getattribute__(self, name):
+        if name in ['do_homework']:
+            raise AttributeError('no such method')
+        return super(Teacher, self).__getattribute__(name)
