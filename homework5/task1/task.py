@@ -21,7 +21,6 @@ class Student:
         if homework.is_active():
             return homework
         print("You are late")
-        return None
 
 
 class Teacher:
@@ -29,5 +28,6 @@ class Teacher:
         self.first_name = first_name
         self.last_name = last_name
 
-    def create_homework(self, text, deadline):
+    @staticmethod
+    def create_homework(text, deadline):
         return Homework(text, deadline)
