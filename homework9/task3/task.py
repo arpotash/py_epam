@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from typing import Callable, Optional, Iterator
+from typing import Callable, Iterator, Optional
 
 
 def get_count_lines(file_lst) -> Iterator:
@@ -54,6 +54,9 @@ def universal_file_counter(
         raise NotADirectoryError("It's not a directory")
     count = 0
     files_filter = list(get_file_with_extension(dir_path, file_extension))
-    count += sum(get_count_lines(files_filter)) if tokenizer is None else \
-        sum(get_count_tokens(files_filter, tokenizer))
+    count += (
+        sum(get_count_lines(files_filter))
+        if tokenizer is None
+        else sum(get_count_tokens(files_filter, tokenizer))
+    )
     return count
