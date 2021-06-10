@@ -20,24 +20,11 @@ class TestSqliteManager:
     def test_get_count_rows(self):
         assert len(self.presidents) == 3
 
-    def test_create_row(self):
-        self.presidents.create_row(
-            "president_name", "president_age", "president_country"
-        )
-        assert len(self.presidents) == 4
-        assert (
-            self.presidents.create_row(
-                "president_name", "president_new_age", "president_new_country"
-            )
-            == "president_name in presidents"
-        )
-        assert len(self.presidents) == 4
-        self.presidents.cursor.execute(
-            f"DELETE FROM {self.presidents.table} WHERE name=:name",
-            {"name": "president_name"},
-        )
-        self.presidents.database.commit()
-        assert len(self.presidents) == 3
+    def test_contains_item_positive(self):
+        assert "Trump" in self.presidents
+
+    def test_contains_item_negative(self):
+        assert "President" not in self.presidents
 
     def test_iter_fields(self):
         presidents_lst = []
