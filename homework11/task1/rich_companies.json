@@ -1,0 +1,82 @@
+[
+    {
+        "name": "BlackRock Inc.",
+        "price": 62959.864495,
+        "code": "BLK",
+        "pe": "20.99",
+        "profit_year": "58.84%",
+        "possible_profit": "72.5742%"
+    },
+    {
+        "name": "Intuitive Surgical Inc",
+        "price": 62719.737499999996,
+        "code": "ISRG",
+        "pe": "80.71",
+        "profit_year": "56.83%",
+        "possible_profit": "64.5931%"
+    },
+    {
+        "name": "Equinix Inc",
+        "price": 59547.910775,
+        "code": "EQIX",
+        "pe": "169.88",
+        "profit_year": "17.57%",
+        "possible_profit": "43.1271%"
+    },
+    {
+        "name": "NVIDIA Corp.",
+        "price": 51644.507053,
+        "code": "NVDA",
+        "pe": "51.80",
+        "profit_year": "95.07%",
+        "possible_profit": "107.2228%"
+    },
+    {
+        "name": "Charter Inc (A) (Charter Communications)",
+        "price": 49502.717617,
+        "code": "CHTR",
+        "pe": "43.09",
+        "profit_year": "32.05%",
+        "possible_profit": "43.0312%"
+    },
+    {
+        "name": "TransDigm Group IncShs",
+        "price": 47947.268126999996,
+        "code": "TDG",
+        "pe": "32.73",
+        "profit_year": "45.55%",
+        "possible_profit": "65.9198%"
+    },
+    {
+        "name": "Lam Research Corp.",
+        "price": 46450.595990999995,
+        "code": "LRCX",
+        "pe": "20.18",
+        "profit_year": "125.21%",
+        "possible_profit": "145.4555%"
+    },
+    {
+        "name": "Tesla",
+        "price": 44154.695199999995,
+        "code": "TSLA",
+        "pe": "299.31",
+        "profit_year": "226.17%",
+        "possible_profit": "395.4002%"
+    },
+    {
+        "name": "Align Technology Inc.",
+        "price": 43415.677493,
+        "code": "ALGN",
+        "pe": "98.94",
+        "profit_year": "143.50%",
+        "possible_profit": "167.914%"
+    },
+    {
+        "name": "IDEXX Laboratories",
+        "price": 42460.187092,
+        "code": "IDXX",
+        "pe": "73.29",
+        "profit_year": "94.28%",
+        "possible_profit": "101.5025%"
+    }
+]

@@ -1,0 +1,82 @@
+[
+    {
+        "name": "L Brands Inc",
+        "price": 4695.737147,
+        "code": "LB",
+        "pe": "11.45",
+        "profit_year": "347.65%",
+        "possible_profit": "446.2063%"
+    },
+    {
+        "name": "Freeport-McMoRan Inc",
+        "price": 2829.9145559999997,
+        "code": "FCX",
+        "pe": "46.28",
+        "profit_year": "266.07%",
+        "possible_profit": "371.3701%"
+    },
+    {
+        "name": "Tesla",
+        "price": 44154.695199999995,
+        "code": "TSLA",
+        "pe": "299.31",
+        "profit_year": "226.17%",
+        "possible_profit": "395.4002%"
+    },
+    {
+        "name": "Tapestry",
+        "price": 3124.5181230000003,
+        "code": "TPR",
+        "pe": "13.55",
+        "profit_year": "198.07%",
+        "possible_profit": "308.4703%"
+    },
+    {
+        "name": "The Mosaic Co",
+        "price": 2372.59807,
+        "code": "MOS",
+        "pe": "25.26",
+        "profit_year": "171.64%",
+        "possible_profit": "231.8576%"
+    },
+    {
+        "name": "Enphase Energy Inc",
+        "price": 10562.003794999999,
+        "code": "ENPH",
+        "pe": "125.98",
+        "profit_year": "159.87%",
+        "possible_profit": "505.7392%"
+    },
+    {
+        "name": "Invesco Ltd",
+        "price": 2040.004262,
+        "code": "IVZ",
+        "pe": "8.72",
+        "profit_year": "150.69%",
+        "possible_profit": "205.4526%"
+    },
+    {
+        "name": "Align Technology Inc.",
+        "price": 43415.677493,
+        "code": "ALGN",
+        "pe": "98.94",
+        "profit_year": "143.50%",
+        "possible_profit": "167.914%"
+    },
+    {
+        "name": "Quanta Services Inc.",
+        "price": 6574.462084,
+        "code": "PWR",
+        "pe": "18.42",
+        "profit_year": "142.81%",
+        "possible_profit": "188.2668%"
+    },
+    {
+        "name": "Applied Materials Inc.",
+        "price": 9935.523217,
+        "code": "AMAT",
+        "pe": "14.03",
+        "profit_year": "142.55%",
+        "possible_profit": "169.5716%"
+    }
+]

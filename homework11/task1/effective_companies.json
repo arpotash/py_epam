@@ -1,0 +1,82 @@
+[
+    {
+        "name": "Enphase Energy Inc",
+        "price": 10562.003794999999,
+        "code": "ENPH",
+        "pe": "125.98",
+        "profit_year": "159.87%",
+        "possible_profit": "505.7392%"
+    },
+    {
+        "name": "Merck Co.",
+        "price": 5404.64938,
+        "code": "MRK",
+        "pe": "13.66",
+        "profit_year": "4.55%",
+        "possible_profit": "447.0626%"
+    },
+    {
+        "name": "L Brands Inc",
+        "price": 4695.737147,
+        "code": "LB",
+        "pe": "11.45",
+        "profit_year": "347.65%",
+        "possible_profit": "446.2063%"
+    },
+    {
+        "name": "Tesla",
+        "price": 44154.695199999995,
+        "code": "TSLA",
+        "pe": "299.31",
+        "profit_year": "226.17%",
+        "possible_profit": "395.4002%"
+    },
+    {
+        "name": "Freeport-McMoRan Inc",
+        "price": 2829.9145559999997,
+        "code": "FCX",
+        "pe": "46.28",
+        "profit_year": "266.07%",
+        "possible_profit": "371.3701%"
+    },
+    {
+        "name": "Devon Energy Corp.",
+        "price": 2065.808954,
+        "code": "DVN",
+        "pe": "-167.13",
+        "profit_year": "116.93%",
+        "possible_profit": "313.3074%"
+    },
+    {
+        "name": "Discovery Communications Inc  (A)",
+        "price": 2208.451557,
+        "code": "DISCA",
+        "pe": "9.18",
+        "profit_year": "27.32%",
+        "possible_profit": "309.7535%"
+    },
+    {
+        "name": "Tapestry",
+        "price": 3124.5181230000003,
+        "code": "TPR",
+        "pe": "13.55",
+        "profit_year": "198.07%",
+        "possible_profit": "308.4703%"
+    },
+    {
+        "name": "Gap Inc.",
+        "price": 2326.006265,
+        "code": "GPS",
+        "pe": "-11.51",
+        "profit_year": "129.52%",
+        "possible_profit": "290.6542%"
+    },
+    {
+        "name": "Discovery Communications Inc  (C)",
+        "price": 2059.357781,
+        "code": "DISCK",
+        "pe": "8.03",
+        "profit_year": "32.21%",
+        "possible_profit": "287.5653%"
+    }
+]
