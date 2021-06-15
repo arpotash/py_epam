@@ -1,0 +1,17 @@
+[
+  {
+    "teacher": 1,
+    "text": "create oop script",
+    "deadline": 2
+  },
+  {
+    "teacher": 2,
+    "text": "create web service",
+    "deadline": 1
+  },
+  {
+    "teacher": 3,
+    "text": "create parser",
+    "deadline": 1
+  }
+]

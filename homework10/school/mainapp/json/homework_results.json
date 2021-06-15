@@ -1,0 +1,27 @@
+[
+  {
+    "student": 1,
+    "homework": 1,
+    "solution": "Oop script is created"
+  },
+  {
+    "student": 1,
+    "homework": 2,
+    "solution": "Web service is created"
+  },
+  {
+    "student": 3,
+    "homework": 2,
+    "solution": "Create online-cinema"
+  },
+  {
+    "student": 2,
+    "homework": 3,
+    "solution": "Create parser for cars and prices for that"
+  },
+  {
+    "student": 4,
+    "homework": 3,
+    "solution": "Create parser for modern buildings prices in Moscow"
+  }
+]
