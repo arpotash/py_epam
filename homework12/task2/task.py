@@ -20,4 +20,3 @@ def morning_discount(self):
 
 def elder_discount(self):
     return math.floor(self.price - self.price * 0.9)
-
