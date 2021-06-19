@@ -6,19 +6,43 @@ from urllib import request
 from xml.dom import minidom
 
 import aiohttp
+import requests
 from bs4 import BeautifulSoup
 
 
 def truncate(x, d):
+    """
+    Function rounds x to d digits
+
+    :param x: float number
+    :param d: int number of digits
+    :return:  float number with d digits after decimal point
+    """
     return int(x * (10.0 ** d)) / (10.0 ** d)
 
 
 async def get_html(url, client, params=None):
+    """
+    Function returns web page html content
+
+    :param url:
+    :param client:
+    :param params:
+
+    :return: str, html page
+    """
     async with client.get(url, params=params) as resp:
         return await resp.text()
 
 
 def get_pages_count(html):
+    """
+    Function returns count of pagination pages
+    on the website
+
+    :param html: str, html content of the webpage
+    :return: int, count of pagination pages
+    """
     soup = BeautifulSoup(html, "lxml")
     pagination = soup.find("div", {"class": "finando_paging"}).find_all("a")
     if pagination:
@@ -27,13 +51,20 @@ def get_pages_count(html):
 
 
 def get_list_pages(html):
+    """
+    Function returns organization details pages links list
+    on a page
+
+    :param html: str, html content of the webpage
+    :return: list, links to the organization details page
+    """
     soup = BeautifulSoup(html, "lxml")
     tds = soup.find_all("td", {"class": "table__td--big"})
     links = [td.find("a").get("href") for td in tds]
     return links
 
 
-def get_organization_page(links, client):
+def get_organization_link(links, client):
     links_content_lst = []
     for link in links:
         organization_link = f"https://markets.businessinsider.com{link}"
@@ -41,15 +72,12 @@ def get_organization_page(links, client):
     return links_content_lst
 
 
-def get_organization_link(links):
-    links_content_lst = []
-    for link in links:
-        organization_link = f"https://markets.businessinsider.com{link}"
-        links_content_lst.append(organization_link)
-    return links_content_lst
-
-
 def create_xml_file_with_currency_data():
+    """
+    Function creates xml file with current value of main currencies
+
+    :return: None
+    """
     url = "http://www.cbr.ru/scripts/XML_daily.asp"
     web_file = request.urlopen(url)
     data = web_file.read()
@@ -59,6 +87,13 @@ def create_xml_file_with_currency_data():
 
 
 def get_ruble_price(dollar):
+    """
+    Function parses current the USA dollar value and counts
+    price in rubles
+
+    :param dollar: float, price in dollars
+    :return: float, price in rubles
+    """
     create_xml_file_with_currency_data()
     doc = minidom.parse("currency.xml")
     dollar_elem = doc.getElementsByTagName("Valute")[10]
@@ -67,14 +102,29 @@ def get_ruble_price(dollar):
     return float(currency) * float(dollar)
 
 
-def get_year_profit(soup_main, html):
+def get_year_profit(soup_main, link):
+    """
+    Function finds year_profit in the organization
+
+    :param soup_main: str, html content of the main webpage
+    :param link, str, part of the link to the organization details page
+    :return: str, organization's year_profit parameter
+    """
     column_name = soup_main.find("tbody").find_all("td", {"class": "table__td--big"})
     for row in column_name:
-        if row.find("a").get("href") == html:
+        if row.find("a").get("href") == link:
             return row.find_parent("tr").find_all("td")[-1].text.split()[1]
 
 
 def get_possible_profit(page_soup):
+    """
+    Function finds minimum and maximum prices and counts
+    possible profit if the share would be bought at the minimum price
+    and sold at the maximum price
+
+    :param page_soup: str, html content of the detail organization page
+    :return: float, organization's possible profit
+    """
     min_price = float(
         page_soup.find("div", {"class": "snapshot__header"}, text="52 Week Low")
         .find_parent("div")
@@ -90,6 +140,14 @@ def get_possible_profit(page_soup):
 
 
 def get_page_data(content, content_main, link):
+    """
+    Function parses main organization's parameters
+
+    :param content: str, html content of the main webpage
+    :param content_main: str, html content of the detail organization page
+    :param link: str, part of the link to the organization details page
+    :return: dict, main organization's parameters
+    """
     try:
         data_dict = {}
         soup = BeautifulSoup(content, "lxml")
@@ -118,6 +176,12 @@ def get_page_data(content, content_main, link):
 
 
 def write_to_json(data):
+    """
+    Function writes company data to json files
+
+    :param data: list, company data
+    :return: None
+    """
     rich_companies = list(
         islice(sorted(data, key=lambda value: value["price"], reverse=True), 10)
     )
@@ -163,7 +227,7 @@ async def main():
         for page in range(1, pages_count + 1):
             html = await get_html(url, client, params={"p": page})
             data_by_page = get_list_pages(html)
-            tasks = get_organization_page(data_by_page, client)
+            tasks = get_organization_link(data_by_page, client)
             responses = await asyncio.gather(*tasks)
             for resp in zip(responses, data_by_page):
                 pages.append((resp, html))
