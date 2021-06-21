@@ -140,15 +140,15 @@ def get_possible_profit(page_soup):
     return (max_price - min_price) / profit
 
 
-def get_page_data(content, content_main, dollar_rate, link):
+def get_page_data(page):
     """
     Function parses main organization's parameters
-
-    :param content: str, html content of the main webpage
-    :param content_main: str, html content of the detail organization page
-    :param link: str, part of the link to the organization details page
+    :param page: tuple of the (main page html content, link to the detail organization page,
+    detail organization page html content, dollar rate in rubles according to Central Bank data)
     :return: dict, main organization's parameters
     """
+    html, content_main, dollar_rate = page
+    content, url = html
     try:
         data_dict = {}
         soup = BeautifulSoup(content, "lxml")
@@ -169,7 +169,7 @@ def get_page_data(content, content_main, dollar_rate, link):
             .text.split()[0]
             .replace(",", "")
         )
-        data_dict["profit_year"] = get_year_profit(soup_main, link)
+        data_dict["profit_year"] = get_year_profit(soup_main, url)
         data_dict["possible_profit"] = f"{truncate(get_possible_profit(soup), 4)}%"
         return data_dict
     except Exception:
@@ -222,6 +222,7 @@ def write_to_json(data):
 async def main():
     pages = []
     url = "https://markets.businessinsider.com/index/components/s&p_500"
+    rubles = get_ruble_price()
     async with aiohttp.ClientSession() as client:
         html = await get_html(url, client)
         pages_count = get_pages_count(html)
@@ -231,17 +232,11 @@ async def main():
             tasks = get_organization_link(data_by_page, client)
             responses = await asyncio.gather(*tasks)
             for resp in zip(responses, data_by_page):
-                pages.append((resp, html))
-    data_lst = list()
+                pages.append((resp, html, rubles))
     with Pool(processes=4) as pool:
-        rubles = get_ruble_price()
-        for page in pages:
-            html, content_main = page
-            content, url = html
-            data = pool.apply(get_page_data, args=(content, content_main, rubles, url))
-            if data:
-                data_lst.append(data)
-    write_to_json(data_lst)
+        data = pool.map(get_page_data, pages)
+        data = [row for row in data if row is not None]
+    write_to_json(data)
 
 
 if __name__ == "__main__":
