@@ -50,7 +50,7 @@ def get_pages_count(html):
     return 1
 
 
-def get_list_pages(html):
+def get_list_pages(html, client):
     """
     Function returns organization details pages links list
     on a page
@@ -58,6 +58,7 @@ def get_list_pages(html):
     :param html: str, html content of the webpage
     :return: list, links to the organization details page
     """
+    links_content_lst = []
     soup = BeautifulSoup(html, "lxml")
     tds = soup.find_all("td", {"class": "table__td--big"})
     links = [td.find("a").get("href") for td in tds]
@@ -86,7 +87,7 @@ def create_xml_file_with_currency_data():
     web_file.close()
 
 
-def get_ruble_price(dollar):
+def get_ruble_price():
     """
     Function parses current the USA dollar value and counts
     price in rubles
@@ -99,7 +100,7 @@ def get_ruble_price(dollar):
     dollar_elem = doc.getElementsByTagName("Valute")[10]
     currency = dollar_elem.getElementsByTagName("Value")[0].firstChild.data
     currency = currency.replace(",", ".")
-    return float(currency) * float(dollar)
+    return float(currency)
 
 
 def get_year_profit(soup_main, link):
@@ -139,7 +140,7 @@ def get_possible_profit(page_soup):
     return (max_price - min_price) / profit
 
 
-def get_page_data(content, content_main, link):
+def get_page_data(content, content_main, dollar_rate, link):
     """
     Function parses main organization's parameters
 
@@ -158,7 +159,7 @@ def get_page_data(content, content_main, link):
         current_value_dollar = soup.find(
             "span", {"class": "price-section__current-value"}
         ).text
-        data_dict["price"] = get_ruble_price(current_value_dollar)
+        data_dict["price"] = float(current_value_dollar) * dollar_rate
         data_dict[
             "code"
         ] = f'{soup.find("span", {"class": "price-section__category"}).find("span").text.strip()[2:]}'
@@ -226,17 +227,18 @@ async def main():
         pages_count = get_pages_count(html)
         for page in range(1, pages_count + 1):
             html = await get_html(url, client, params={"p": page})
-            data_by_page = get_list_pages(html)
+            data_by_page = get_list_pages(html, client)
             tasks = get_organization_link(data_by_page, client)
             responses = await asyncio.gather(*tasks)
             for resp in zip(responses, data_by_page):
                 pages.append((resp, html))
     data_lst = list()
     with Pool(processes=4) as pool:
+        rubles = get_ruble_price()
         for page in pages:
             html, content_main = page
             content, url = html
-            data = pool.apply(get_page_data, args=(content, content_main, url))
+            data = pool.apply(get_page_data, args=(content, content_main, rubles, url))
             if data:
                 data_lst.append(data)
     write_to_json(data_lst)
