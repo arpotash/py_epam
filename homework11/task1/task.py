@@ -92,7 +92,6 @@ def get_ruble_price():
     Function parses current the USA dollar value and counts
     price in rubles
 
-    :param dollar: float, price in dollars
     :return: float, price in rubles
     """
     create_xml_file_with_currency_data()
