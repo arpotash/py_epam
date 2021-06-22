@@ -6,7 +6,6 @@ from urllib import request
 from xml.dom import minidom
 
 import aiohttp
-import requests
 from bs4 import BeautifulSoup
 
 
@@ -50,7 +49,7 @@ def get_pages_count(html):
     return 1
 
 
-def get_list_pages(html, client):
+def get_list_pages(html):
     """
     Function returns organization details pages links list
     on a page
@@ -58,7 +57,6 @@ def get_list_pages(html, client):
     :param html: str, html content of the webpage
     :return: list, links to the organization details page
     """
-    links_content_lst = []
     soup = BeautifulSoup(html, "lxml")
     tds = soup.find_all("td", {"class": "table__td--big"})
     links = [td.find("a").get("href") for td in tds]
@@ -171,7 +169,7 @@ def get_page_data(page):
         data_dict["profit_year"] = get_year_profit(soup_main, url)
         data_dict["possible_profit"] = f"{truncate(get_possible_profit(soup), 4)}%"
         return data_dict
-    except Exception:
+    except ValueError:
         return
 
 
@@ -227,7 +225,7 @@ async def main():
         pages_count = get_pages_count(html)
         for page in range(1, pages_count + 1):
             html = await get_html(url, client, params={"p": page})
-            data_by_page = get_list_pages(html, client)
+            data_by_page = get_list_pages(html)
             tasks = get_organization_link(data_by_page, client)
             responses = await asyncio.gather(*tasks)
             for resp in zip(responses, data_by_page):
