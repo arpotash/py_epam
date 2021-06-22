@@ -1,0 +1,82 @@
+[
+    {
+        "name": "Vornado Realty Trust",
+        "price": 3575.383436,
+        "code": "VNO",
+        "pe": "-893.45",
+        "profit_year": "13.87%",
+        "possible_profit": "70.8053%"
+    },
+    {
+        "name": "Chevron Corp.",
+        "price": 7740.6908029999995,
+        "code": "CVX",
+        "pe": "-427.45",
+        "profit_year": "17.43%",
+        "possible_profit": "73.5461%"
+    },
+    {
+        "name": "Devon Energy Corp.",
+        "price": 2065.808954,
+        "code": "DVN",
+        "pe": "-167.13",
+        "profit_year": "116.93%",
+        "possible_profit": "313.3074%"
+    },
+    {
+        "name": "ExxonMobil Corp. (Exxon Mobil)",
+        "price": 4454.893355,
+        "code": "XOM",
+        "pe": "-125.36",
+        "profit_year": "11.53%",
+        "possible_profit": "105.7859%"
+    },
+    {
+        "name": "Phillips 66",
+        "price": 6554.3917679999995,
+        "code": "PSX",
+        "pe": "-76.53",
+        "profit_year": "-2.58%",
+        "possible_profit": "117.8752%"
+    },
+    {
+        "name": "Under Armour Inc.",
+        "price": 1485.920181,
+        "code": "UAA",
+        "pe": "-64.50",
+        "profit_year": "130.43%",
+        "possible_profit": "195.5307%"
+    },
+    {
+        "name": "Incyte Corp.",
+        "price": 5928.627986999999,
+        "code": "INCY",
+        "pe": "-63.09",
+        "profit_year": "-3.61%",
+        "possible_profit": "46.1467%"
+    },
+    {
+        "name": "Twitter",
+        "price": 4360.276151,
+        "code": "TWTR",
+        "pe": "-62.10",
+        "profit_year": "49.12%",
+        "possible_profit": "186.0077%"
+    },
+    {
+        "name": "Under Armour Inc When Issued",
+        "price": 1282.349833,
+        "code": "UA",
+        "pe": "-55.67",
+        "profit_year": "124.41%",
+        "possible_profit": "169.3827%"
+    },
+    {
+        "name": "PVH Corp.",
+        "price": 7871.864653999999,
+        "code": "PVH",
+        "pe": "-44.03",
+        "profit_year": "140.69%",
+        "possible_profit": "190.1125%"
+    }
+]
